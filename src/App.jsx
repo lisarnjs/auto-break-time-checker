@@ -4,7 +4,8 @@ import "./App.css";
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [status, setStatus] = useState("🔥 STUDY TIME");
-
+  const dayToKoreanList = ["일", "월", "화", "수", "목", "금", "토"];
+  const dayToKorean = dayToKoreanList[currentTime.getDay()];
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
@@ -23,7 +24,8 @@ function App() {
 
   return (
     <>
-      <h3>Automation Timer For Groom Player</h3>
+      <h3>Automation Timer</h3>
+      <h2>오늘은 {dayToKorean}요일</h2>
       <h1>{status}</h1>
       <h2>{currentTime.toLocaleTimeString()}</h2>
     </>
