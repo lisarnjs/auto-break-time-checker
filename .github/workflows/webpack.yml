@@ -1,35 +1,42 @@
-name: Groom Timer CI/CD
+name: Timer CI/CD
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   pull_request:
-    branches:
-      - main
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
 
-      - name: Node.js 설정
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: ${{ matrix.node-version }}
 
       - name: Install Dependencies
-        run: npm ci --legacy-peer-deps
+        run: npm install
 
-      - name: Run Tests
+      - name: Lint Check
+        run: npm run lint
+
+      - name: Run Unit Tests 🔥
         run: npm run test
 
-      - name: Build Vite Project
+      - name: Build Project
         run: npm run build
 
       - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
