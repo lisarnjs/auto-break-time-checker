@@ -1,33 +1,36 @@
-name: NodeJS with Webpack
+name: Groom Timer CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
-
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
 
-    - name: Build React
-      run: npm run build
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps
 
-    - name: Deploy to 'gh-pages' branch
-      uses: peaceiris/actions-gh-pages@v4
-      with:
+      - name: Run Tests
+        run: npm run test
+
+      - name: Build Vite Project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
-          
