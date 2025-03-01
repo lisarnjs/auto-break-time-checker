@@ -10,6 +10,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write # gh-pages 브랜치에 푸시할 수 있도록 권한을 설정합니다.
+      pages: write    # GitHub Pages 배포 권한
+
+
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
