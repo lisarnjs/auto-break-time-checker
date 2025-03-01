@@ -8,6 +8,9 @@ and also practice for...
 
 1. github pages deploy
 2. github actions workflows settings
+
+   : to make build automation
+
 3. practice jest test code
 
 | You can run with `npm run dev`
