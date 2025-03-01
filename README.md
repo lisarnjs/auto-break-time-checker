@@ -1,6 +1,7 @@
 ### react + vite
 
 | Introduce
+
 This is a timer that automatically tracks study time from each hour’s start to the 50th minute, followed by a 10-minute break until the next hour.
 
 and also practice for...
