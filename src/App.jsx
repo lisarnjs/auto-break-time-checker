@@ -28,7 +28,7 @@ function App() {
 
   return (
     <>
-      <h3>Automation Timer</h3>
+      <h3>🌟Automation Timer🌟</h3>
       <h2>오늘은 {dayToKorean}요일</h2>
 
       {[BREAK_TIME_MINUTES, STUDY_TIME_MINUTES].includes(currentMinutes) && (
